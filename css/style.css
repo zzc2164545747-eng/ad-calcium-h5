@@ -228,6 +228,7 @@ body {
   border-radius: 12px;
   display: block;
   background: #000;
+  pointer-events: none;
 }
 .video-frame-outer {
   position: absolute;

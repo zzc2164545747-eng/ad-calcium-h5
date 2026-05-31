@@ -368,17 +368,24 @@ function finishLoader() {
   loaderFinished = true;
   updateLoaderProgress(100);
 
-  ManifestoTexture.init();
-  ProductsTexture.init();
-  QuizTexture.init();
-  FooterTexture.init();
-  initOrientation();
+  try { ManifestoTexture.init(); } catch(e) {}
+  try { ProductsTexture.init(); } catch(e) {}
+  try { QuizTexture.init(); } catch(e) {}
+  try { FooterTexture.init(); } catch(e) {}
+  try { initOrientation(); } catch(e) {}
 
+  // Failsafe: always hide loader even if initAnimations fails
   setTimeout(() => {
     loader.classList.add('hide');
     if (loaderVideo) loaderVideo.pause();
-    initAnimations();
+    try { initAnimations(); } catch(e) {}
   }, 400);
+
+  // Absolute failsafe: force hide loader after 5s no matter what
+  setTimeout(() => {
+    loader.classList.add('hide');
+    if (loaderVideo) loaderVideo.pause();
+  }, 5000);
 }
 
 // Fixed 5-second loading with video playback
@@ -407,10 +414,13 @@ function initVideoLoader() {
   }, 100);
 }
 
-// Click to skip
-loader.addEventListener('click', () => {
+// Click/touch to skip — both events for mobile compatibility
+loader.addEventListener('click', function() {
   if (!loaderFinished) finishLoader();
 });
+loader.addEventListener('touchstart', function(e) {
+  if (!loaderFinished) { e.preventDefault(); finishLoader(); }
+}, { passive: false });
 
 document.addEventListener('keydown', (e) => {
   if ((e.key === ' ' || e.key === 'Enter') && !loaderFinished) {
