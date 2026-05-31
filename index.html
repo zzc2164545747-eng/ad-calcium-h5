@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AD钙奶30周年 | 陪你酸酸甜甜 懂你可可爱爱</title>
+    <link rel="stylesheet" href="css/style.css?v=34">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Loader — 波普加载页 -->
+    <div id="loader">
+        <!-- 半调网点 -->
+        <div class="halftone-layer halftone-lg"></div>
+        <!-- 浮动装饰星 -->
+        <div class="pop-star pop-star-1">★</div>
+        <div class="pop-star pop-star-2">✦</div>
+        <div class="pop-star pop-star-3">★</div>
+        <div class="pop-star pop-star-4">✦</div>
+        <div class="pop-star pop-star-5">★</div>
+        <div class="pop-star pop-star-6">✦</div>
+
+        <div class="loader-inner">
+            <div class="loader-brand">
+                <span class="pop-dot">●</span>
+                <img src="娃哈哈【2026.3.19确定版】/娃哈哈.png" alt="娃哈哈">
+                <span class="pop-dot">●</span>
+            </div>
+            <div class="loader-video-card">
+                <div class="video-frame-outer"></div>
+                <div class="video-frame-inner"></div>
+                <video id="loaderVideo" src="娃哈哈【2026.3.19确定版】/AD钙.mp4" muted playsinline preload="auto" loop></video>
+            </div>
+            <h1 class="loader-title">
+                <span class="l-char-a">A</span><span class="l-char-d">D</span><span class="l-char-gn">钙</span><span class="l-char-gn">奶</span>
+            </h1>
+            <p class="loader-title-sub">30<em>周年</em></p>
+            <p class="loader-tagline"><span class="pop-star-inline">★</span> 陪你酸酸甜甜 · 懂你可可爱爱 <span class="pop-star-inline">★</span></p>
+            <div class="loader-bar-wrap">
+                <div class="loader-bar"><div class="loader-progress" id="loaderProgress"></div></div>
+                <span class="loader-bar-label" id="loaderLoadingText">LOADING...</span>
+            </div>
+            <p class="loader-skip" id="loaderSkip"><span class="pop-star-inline">✦</span> 点击跳过 <span class="pop-star-inline">✦</span></p>
+        </div>
+    </div>
+
+    <!-- Fixed Navigation Dots -->
+    <div class="nav-dots">
+        <div class="dot active" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+        <div class="dot" data-index="3"></div>
+        <div class="dot" data-index="4"></div>
+    </div>
+
+    <main id="main">
+        <div class="transition-wrap">
+            <!-- S1: 漫画破格海报 -->
+        <section class="section hero-comic" data-index="0">
+            <!-- 星轨 -->
+            <canvas class="star-trails-canvas" id="heroStarTrails"></canvas>
+            <!-- 闪烁星光 -->
+            <div class="hero-twinkle hero-tw-1">★</div>
+            <div class="hero-twinkle hero-tw-3">★</div>
+            <div class="hero-twinkle hero-tw-5">★</div>
+            <div class="hero-twinkle hero-tw-6">✦</div>
+            <div class="hero-twinkle hero-tw-7">★</div>
+            <!-- 速度线 -->
+            <div class="speedlines"></div>
+            <!-- 半调网点 -->
+            <div class="comic-halftone"></div>
+
+            <!-- 瓶身 -->
+            <div class="comic-bottle">
+                <img src="pic/_Image.png" alt="AD钙奶">
+            </div>
+            <!-- 火花 -->
+            <div class="comic-spark spark-1">★</div>
+            <div class="comic-spark spark-2">✦</div>
+            <div class="comic-spark spark-3">★</div>
+            <div class="comic-spark spark-4">✦</div>
+            <div class="comic-spark spark-5">★</div>
+
+            <!-- 标题 -->
+            <h1 class="comic-title">
+                <span class="char-a">A</span><span class="char-d">D</span><span class="char-gn">钙</span><span class="char-gn">奶</span>
+                <span class="comic-30">30<em>周年</em></span>
+            </h1>
+            <p class="comic-tagline">★ 陪你酸酸甜甜 · 懂你可可爱爱 ★</p>
+
+            <!-- 30周年时间线 -->
+            <div class="timeline">
+                <div class="tl-track">
+                    <div class="tl-pulse"></div>
+                    <div class="tl-node">
+                        <div class="tl-dot"></div>
+                        <span class="tl-year">1996</span>
+                        <span class="tl-desc">AD钙奶诞生</span>
+                    </div>
+                    <div class="tl-node">
+                        <div class="tl-dot"></div>
+                        <span class="tl-year">2006</span>
+                        <span class="tl-desc">走进亿万家</span>
+                    </div>
+                    <div class="tl-node">
+                        <div class="tl-dot"></div>
+                        <span class="tl-year">2016</span>
+                        <span class="tl-desc">年销破30亿</span>
+                    </div>
+                    <div class="tl-node">
+                        <div class="tl-dot"></div>
+                        <span class="tl-year">2026</span>
+                        <span class="tl-desc">三十周年</span>
+                    </div>
+                </div>
+                <p class="tl-caption">1996 — 2026  陪你酸酸甜甜</p>
+            </div>
+
+            <div class="scroll-hint" id="scrollHint">
+                <svg class="hourglass" viewBox="0 0 32 44" width="19" height="27">
+                    <polygon points="2,2 30,2 18,20 14,20" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                    <rect x="12" y="20" width="8" height="4" fill="rgba(123,198,126,0.8)"/>
+                    <polygon points="2,42 30,42 18,24 14,24" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- S1: Manifesto -->
+        <section class="section manifesto" data-index="1">
+            <canvas class="mani-star-trails" id="maniStarTrails"></canvas>
+            <div class="mani-halftone"></div>
+            <div class="mani-twinkle mani-tw-1">★</div>
+            <div class="mani-twinkle mani-tw-2">✦</div>
+            <div class="mani-twinkle mani-tw-3">★</div>
+            <div class="mani-twinkle mani-tw-4">✦</div>
+            <div class="mani-twinkle mani-tw-5">★</div>
+            <canvas id="manifestoTexture"></canvas>
+            <div class="manifesto-inner">
+                <h2 class="manifesto-title">
+                    <span class="manifesto-line1a">30年，</span><span class="manifesto-line1b">懂你不只一面</span>
+                    <span class="manifesto-accent">每一口都是童年的回响</span>
+                </h2>
+                <div class="manifesto-cards">
+                    <div class="m-card">
+                        <img class="m-card-bg" src="pic/怀旧书包与AD钙奶插画.png" alt="">
+                        <div class="m-card-text">
+                            <div class="m-num">01</div>
+                            <h3>童年记忆</h3>
+                            <p>小时候偷喝的那一口<br>是藏在书包里的甜</p>
+                        </div>
+                    </div>
+                    <div class="m-card">
+                        <img class="m-card-bg" src="pic/便利店货架AD钙奶插画.png" alt="">
+                        <div class="m-card-text">
+                            <div class="m-num">02</div>
+                            <h3>青春符号</h3>
+                            <p>课间操后的便利店<br>和同桌碰瓶的默契</p>
+                        </div>
+                    </div>
+                    <div class="m-card">
+                        <img class="m-card-bg" src="pic/深夜厨房治愈插画.png" alt="">
+                        <div class="m-card-text">
+                            <div class="m-num">03</div>
+                            <h3>成年治愈</h3>
+                            <p>加班深夜的冰箱角落<br>依然为你留着那份可爱</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mani-hourglass-wrap" id="maniHourglass">
+                <svg class="hourglass" viewBox="0 0 32 44" width="19" height="27">
+                    <polygon points="2,2 30,2 18,20 14,20" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                    <rect x="12" y="20" width="8" height="4" fill="rgba(123,198,126,0.8)"/>
+                    <polygon points="2,42 30,42 18,24 14,24" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                </svg>
+            </div>
+        </section>
+        </div><!-- /transition-wrap -->
+
+        <!-- S2: Products -->
+        <section class="section products" data-index="2">
+            <canvas id="productsTexture"></canvas>
+            <div class="mani-halftone"></div>
+            <div class="mani-twinkle mani-tw-1">★</div>
+            <div class="mani-twinkle mani-tw-2">✦</div>
+            <div class="mani-twinkle mani-tw-3">★</div>
+            <div class="mani-twinkle mani-tw-4">✦</div>
+            <div class="mani-twinkle mani-tw-5">★</div>
+            <div class="products-header">
+                <span class="sec-label">Pick Your Vibe</span>
+                <h2>五种酸甜人格</h2>
+                <p>滑动探索 · 点击解锁人格详情</p>
+            </div>
+
+            <div class="product-track-wrap">
+                <div class="product-track" id="productTrack">
+                    <!-- Product cards injected by JS -->
+                </div>
+            </div>
+
+            <div class="product-detail" id="productDetail">
+                <div class="detail-inner">
+                    <button class="detail-close" onclick="closeDetail()">&times;</button>
+                    <div class="detail-visual">
+                        <img src="" alt="" id="detailImg">
+                    </div>
+                    <div class="detail-info">
+                        <span class="detail-tag" id="detailTag"></span>
+                        <h3 id="detailName"></h3>
+                        <p id="detailDesc"></p>
+                        <div class="detail-notes" id="detailNotes"></div>
+                        <div class="detail-personality" id="detailPersonality"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drag-hint">
+                <span>&larr; Drag to explore &rarr;</span>
+            </div>
+            <div class="mani-hourglass-wrap" id="prodHourglass">
+                <svg class="hourglass" viewBox="0 0 32 44" width="19" height="27">
+                    <polygon points="2,2 30,2 18,20 14,20" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                    <rect x="12" y="20" width="8" height="4" fill="rgba(123,198,126,0.8)"/>
+                    <polygon points="2,42 30,42 18,24 14,24" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- S3: Personality Quiz -->
+        <section class="section quiz" data-index="3">
+            <canvas id="quizTexture"></canvas>
+            <div class="mani-halftone"></div>
+            <div class="mani-twinkle mani-tw-1">★</div>
+            <div class="mani-twinkle mani-tw-2">✦</div>
+            <div class="mani-twinkle mani-tw-3">★</div>
+            <div class="mani-twinkle mani-tw-4">✦</div>
+            <div class="mani-twinkle mani-tw-5">★</div>
+            <div class="quiz-wrap">
+                <!-- Start -->
+                <div class="quiz-start" id="quizStart">
+                    <span class="quiz-label">Personality Quiz</span>
+                    <h2>测测你是哪种<br><span class="quiz-accent">AD钙奶人格？</span></h2>
+                    <p>5道趣味选择题，解锁你的酸甜属性与专属海报</p>
+                    <button class="btn-primary" onclick="startQuiz()">开始测试</button>
+                </div>
+
+                <!-- Question -->
+                <div class="quiz-question" id="quizQuestion" style="display:none">
+                    <div class="quiz-progress"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+                    <span class="q-num" id="qNum">Q1 / 5</span>
+                    <h3 class="q-text" id="qText">题目加载中...</h3>
+                    <div class="q-options" id="qOptions"></div>
+                </div>
+
+                <!-- Result — Hero Card Layout -->
+                <div class="quiz-result" id="quizResult" style="display:none">
+                    <div class="result-hero-card">
+                        <div class="result-header">
+                            <h2 id="resultTitle" class="result-hero-title"></h2>
+                            <div class="result-header-tags" id="resultTags"></div>
+                        </div>
+                        <div class="result-hero-visual">
+                            <img src="" alt="" id="resultImg">
+                        </div>
+                        <span class="result-label">Your Personality</span>
+                        <p id="resultDesc"></p>
+                    </div>
+                    <div class="result-actions">
+                        <button class="btn-primary" onclick="generatePoster()">生成专属海报</button>
+                        <button class="btn-outline" onclick="resetQuiz()">再测一次</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mani-hourglass-wrap" id="quizHourglass">
+                <svg class="hourglass" viewBox="0 0 32 44" width="19" height="27">
+                    <polygon points="2,2 30,2 18,20 14,20" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                    <rect x="12" y="20" width="8" height="4" fill="rgba(123,198,126,0.8)"/>
+                    <polygon points="2,42 30,42 18,24 14,24" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- S4: Grand Finale — 30周年纪念终章 -->
+        <section class="section finale" data-index="4">
+            <canvas id="footerTexture"></canvas>
+            <div class="mani-halftone"></div>
+            <div class="mani-twinkle finale-tw-1">★</div>
+            <div class="mani-twinkle finale-tw-2">✦</div>
+            <div class="mani-twinkle finale-tw-3">★</div>
+            <div class="mani-twinkle finale-tw-4">✦</div>
+            <div class="mani-twinkle finale-tw-5">★</div>
+            <div class="mani-twinkle finale-tw-6">✦</div>
+            <div class="mani-twinkle finale-tw-7">★</div>
+
+            <div class="finale-inner">
+                <!-- 顶部标题 -->
+                <div class="finale-header">
+                    <span class="finale-badge">★ 1996 — 2026 ★</span>
+                    <h2 class="finale-title">
+                        <span class="fn-char-a">A</span><span class="fn-char-d">D</span><span class="fn-char-gn">钙</span><span class="fn-char-gn">奶</span>
+                    </h2>
+                    <p class="finale-subtitle">30<em>周年</em></p>
+                </div>
+
+                <!-- 翻页钟 -->
+                <div class="flip-clock">
+                    <div class="flip-unit">
+                        <div class="flip-card" id="flipTens"><span class="flip-num">0</span></div>
+                    </div>
+                    <div class="flip-unit">
+                        <div class="flip-card" id="flipOnes"><span class="flip-num">0</span></div>
+                    </div>
+                    <span class="flip-year">年</span>
+                </div>
+
+                <!-- slogan -->
+                <p class="finale-slogan">陪你酸酸甜甜 · 懂你可可爱爱</p>
+
+                <!-- 海报预览 -->
+                <div class="finale-poster">
+                    <img src="pic/AD钙奶人格测试简洁海报.png" alt="AD钙奶30周年海报">
+                    <div class="finale-poster-glow"></div>
+                </div>
+
+                <!-- 按钮 -->
+                <div class="finale-actions">
+                    <button class="btn-primary" onclick="sharePage()">📤 分享给好友</button>
+                    <button class="btn-outline" onclick="savePoster()">📥 保存纪念海报</button>
+                </div>
+
+                <p class="finale-copyright">© 娃哈哈集团 | 第18届大广赛参赛作品</p>
+            </div>
+
+            <div class="mani-hourglass-wrap" id="footerHourglass">
+                <svg class="hourglass" viewBox="0 0 32 44" width="19" height="27">
+                    <polygon points="2,2 30,2 18,20 14,20" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                    <rect x="12" y="20" width="8" height="4" fill="rgba(123,198,126,0.8)"/>
+                    <polygon points="2,42 30,42 18,24 14,24" fill="none" stroke="rgba(123,198,126,0.8)" stroke-width="2"/>
+                </svg>
+            </div>
+        </section>
+    </main>
+
+    <!-- Poster Modal -->
+    <div class="modal" id="posterModal">
+        <div class="modal-inner">
+            <canvas id="posterCanvas" width="750" height="1334"></canvas>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="sharePoster()">分享海报</button>
+                <button class="btn-outline" onclick="closeModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js?v=34"></script>
+</body>
+</html>
