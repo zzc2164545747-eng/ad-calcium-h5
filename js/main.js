@@ -1,4 +1,4 @@
-// ======================
+﻿// ======================
 // AD钙奶30周年 H5 - 品牌重构版
 // 风格：明亮奶白 / 极简现代 / 品牌动画
 // 人格定位：青少年（复古新人类 / 甜心硬核派 / 活力佛系人 / 养生朋克族 / 尖牙猫奴系）
@@ -207,7 +207,7 @@ var products = [
     color: '#22C55E',
     light: '#DCFCE7',
     soft: '#86EFAC',
-    img: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/220新AD.png',
+    img: 'wahaha/【产品图】AD系列/220新AD.png',
     notes: ['维生素A+D', '钙奶经典配方', '220ml便携'],
     personality: '适合复古新人类 — vintage是穿搭，旧灵魂是内核'
   },
@@ -219,7 +219,7 @@ var products = [
     color: '#F43F5E',
     light: '#FFE4E6',
     soft: '#FDA4AF',
-    img: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/220AD草莓味新瓶型.png',
+    img: 'wahaha/【产品图】AD系列/220AD草莓味新瓶型.png',
     notes: ['真实草莓汁', '0脂肪轻负担', '多巴胺配色'],
     personality: '适合甜心硬核派 — 甜美是保护色，硬核是真面目'
   },
@@ -231,7 +231,7 @@ var products = [
     color: '#F59E0B',
     light: '#FEF3C7',
     soft: '#FCD34D',
-    img: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/220AD蜜桃味新瓶型.png',
+    img: 'wahaha/【产品图】AD系列/220AD蜜桃味新瓶型.png',
     notes: ['水蜜桃原汁', '温润顺口', '治愈系首选'],
     personality: '适合活力佛系人 — 嘴上说着随缘，心里全力以赴'
   },
@@ -243,7 +243,7 @@ var products = [
     color: '#A855F7',
     light: '#F3E8FF',
     soft: '#D8B4FE',
-    img: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/450新AD胶原蛋白.png',
+    img: 'wahaha/【产品图】AD系列/450新AD胶原蛋白.png',
     notes: ['胶原蛋白肽', '大容量450ml', '精致女孩必备'],
     personality: '适合养生朋克族 — 一边熬夜一边敷面膜，精致地活就是朋克'
   },
@@ -255,7 +255,7 @@ var products = [
     color: '#38BDF8',
     light: '#E0F2FE',
     soft: '#7DD3FC',
-    img: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/450新AD乳酸菌.png',
+    img: 'wahaha/【产品图】AD系列/450新AD乳酸菌.png',
     notes: ['活性乳酸菌', '清爽解腻', '运动好搭档'],
     personality: '适合尖牙猫奴系 — 骑最凶的金属摩托，贴最可爱的猫咪贴纸'
   }
@@ -1250,8 +1250,8 @@ const resultData = {
   original: {
     title: '复古新人类',
     desc: '你是一边穿着爸妈年代的 vintage 运动外套，一边用最新款手机拍复古滤镜短视频的矛盾体。怀旧不是你的舒适区，而是你的时尚武器。AD原味是你衣橱里永不过时的白T——经典、百搭、越旧越有味道。',
-    character: '人物/复古新人类1.png',
-    product: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/220新AD.png',
+    character: 'characters/复古新人类1.png',
+    product: 'wahaha/【产品图】AD系列/220新AD.png',
     tags: ['复古DNA', '新世代旧灵魂', 'vintage玩家', '经典即潮流'],
     color: '#7B8D6E',
     light: '#E8EDE2'
@@ -1259,8 +1259,8 @@ const resultData = {
   strawberry: {
     title: '甜心硬核派',
     desc: '你的朋友圈是粉色滤镜的甜妹日常，但耳机里放的是重型贝斯。粉色卫衣是你的战袍，底下藏着乐队T恤和未愈合的滑板伤疤。草莓味的甜只是你的保护色，骨子里的硬核才是真面目。',
-    character: '人物/甜蜜硬核派1.png',
-    product: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/220AD草莓味新瓶型.png',
+    character: 'characters/甜蜜硬核派1.png',
+    product: 'wahaha/【产品图】AD系列/220AD草莓味新瓶型.png',
     tags: ['甜酷双修', '粉色暴击', '反差战神', '硬核少女心'],
     color: '#C94B7A',
     light: '#FBE4ED'
@@ -1268,8 +1268,8 @@ const resultData = {
   peach: {
     title: '活力佛系人',
     desc: '你嘴上说着"随便吧""差不多得了"，体测却悄悄拿了满分。不争不抢是你的处世哲学，但实力不允许你低调。蜜桃的温柔就像你的存在感——看似佛系，一出手就知道有没有。',
-    character: '人物/活力佛系人1.png',
-    product: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/220AD蜜桃味新瓶型.png',
+    character: 'characters/活力佛系人1.png',
+    product: 'wahaha/【产品图】AD系列/220AD蜜桃味新瓶型.png',
     tags: ['佛系赢家', '隐藏大佬', '躺不平卷不赢', '轻松开挂'],
     color: '#D4875E',
     light: '#FEF0E8'
@@ -1277,8 +1277,8 @@ const resultData = {
   collagen: {
     title: '养生朋克族',
     desc: '你穿着破洞牛仔裤，裤兜里却装着枸杞茶包；凌晨三点的夜你照熬，但胶原蛋白一片都不能少。朋克是你的态度，养生是你的底线。胶原蛋白的精致，刚好配你那颗又想叛逆又想长命百岁的心。',
-    character: '人物/养生朋克族1.png',
-    product: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/450新AD胶原蛋白.png',
+    character: 'characters/养生朋克族1.png',
+    product: 'wahaha/【产品图】AD系列/450新AD胶原蛋白.png',
     tags: ['朋克养生', '精致保温杯', '熬夜续命', '叛逆保健'],
     color: '#6B7FAD',
     light: '#EDF0F7'
@@ -1286,8 +1286,8 @@ const resultData = {
   lacto: {
     title: '尖牙猫奴系',
     desc: '你的默认表情是"别烦我"，但遇到猫的瞬间会自动切换夹子音。社交对你来说是耗电模式，独处才是快充。乳酸的清爽就像你的存在感——看似冷淡，但对小动物温柔到骨子里，骑最凶的摩托，贴最萌的猫咪贴纸。',
-    character: '人物/冷脸猫猫奴1.png',
-    product: '娃哈哈【2026.3.19确定版】/【产品图】AD系列/450新AD乳酸菌.png',
+    character: 'characters/冷脸猫猫奴1.png',
+    product: 'wahaha/【产品图】AD系列/450新AD乳酸菌.png',
     tags: ['金属猫猫党', '猫系少年', '冷脸暖芯', '社恐但温柔'],
     color: '#3B6FD4',
     light: '#E5EDFA'
