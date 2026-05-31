@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'NanXiSong';
-  src: url('../fronts/南西初夏宋-简繁.ttf') format('truetype');
+  src: url('../fronts/nanxi-song.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: 'DouyinMeiHao';
-  src: url('../fronts/抖音美好体.otf') format('opentype');
+  src: url('../fronts/douyin-meihao.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -26,7 +26,7 @@
 
 @font-face {
   font-family: 'ErYaXinDaHei';
-  src: url('../fronts/尔雅新大黑0.ttf') format('truetype');
+  src: url('../fronts/erya-hei.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
