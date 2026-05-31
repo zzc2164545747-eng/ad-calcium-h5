@@ -349,18 +349,45 @@ function removeWhiteFringe(img, threshold = 210) {
   img.src = canvas.toDataURL('image/png');
 }
 
-// ===== LOADER — 视频加载页 =====
+// ===== IMAGE PRELOADER — 预加载模块 =====
 const loaderVideo = document.getElementById('loaderVideo');
 const loaderProgressEl = document.getElementById('loaderProgress');
 const loaderLoadingText = document.getElementById('loaderLoadingText');
-const loaderSkip = document.getElementById('loaderSkip');
-let loaderProgress = 0;
 let loaderFinished = false;
+
+// All images that need preloading
+var PRELOAD_IMAGES = [
+  // Priority 1: visible on load/hero
+  { url: 'wahaha/logo.png', pri: 0 },
+  { url: 'pic/hero-bottle.png', pri: 0 },
+  // Priority 1: manifesto cards (visible on first scroll)
+  { url: 'pic/schoolbag-ad.png', pri: 1 },
+  { url: 'pic/store-shelf-ad.png', pri: 1 },
+  { url: 'pic/kitchen-ad.png', pri: 1 },
+  { url: 'pic/quiz-poster.png', pri: 1 },
+  // Priority 2: product images
+  { url: 'wahaha/products/220-ad-classic.png', pri: 2 },
+  { url: 'wahaha/products/220-ad-strawberry.png', pri: 2 },
+  { url: 'wahaha/products/220-ad-peach.png', pri: 2 },
+  { url: 'wahaha/products/450-ad-collagen.png', pri: 2 },
+  { url: 'wahaha/products/450-ad-lacto.png', pri: 2 },
+  // Priority 2: character images
+  { url: 'characters/vintage-human.png', pri: 2 },
+  { url: 'characters/sweet-hardcore.png', pri: 2 },
+  { url: 'characters/zen-energy.png', pri: 2 },
+  { url: 'characters/punk-wellness.png', pri: 2 },
+  { url: 'characters/cool-cat-lover.png', pri: 2 },
+];
+
+var preloadTotal = PRELOAD_IMAGES.length;
+var preloadLoaded = 0;
+var preloadStartTime = 0;
+var preloadMinTime = 1800;  // minimum display 1.8s for brand impression
+var preloadMaxTime = 10000; // max wait 10s then proceed anyway
 
 function updateLoaderProgress(percent) {
   if (loaderFinished) return;
-  loaderProgress = Math.min(100, percent);
-  loaderProgressEl.style.width = loaderProgress + '%';
+  loaderProgressEl.style.width = Math.min(100, percent) + '%';
 }
 
 function finishLoader() {
@@ -374,55 +401,114 @@ function finishLoader() {
   try { FooterTexture.init(); } catch(e) {}
   try { initOrientation(); } catch(e) {}
 
-  // Failsafe: always hide loader even if initAnimations fails
-  setTimeout(() => {
+  setTimeout(function() {
     loader.classList.add('hide');
     if (loaderVideo) loaderVideo.pause();
     try { initAnimations(); } catch(e) {}
   }, 400);
 
-  // Absolute failsafe: force hide loader after 5s no matter what
-  setTimeout(() => {
+  // Absolute failsafe
+  setTimeout(function() {
     loader.classList.add('hide');
     if (loaderVideo) loaderVideo.pause();
   }, 5000);
 }
 
-// Fixed 5-second loading with video playback
-function initVideoLoader() {
-  // Start playing video
+function tryFinishPreloader() {
+  var elapsed = Date.now() - preloadStartTime;
+  var allPri1Done = true;
+
+  // Check if all priority 0 and 1 images are loaded
+  for (var i = 0; i < PRELOAD_IMAGES.length; i++) {
+    if (PRELOAD_IMAGES[i].pri <= 1 && PRELOAD_IMAGES[i]._status !== 'done') {
+      allPri1Done = false;
+      break;
+    }
+  }
+
+  // Finish when: all pri0+pri1 loaded AND min time elapsed, OR max time reached
+  if (allPri1Done && elapsed >= preloadMinTime) {
+    finishLoader();
+  } else if (elapsed >= preloadMaxTime) {
+    finishLoader();
+  }
+}
+
+function onImageLoaded(entry) {
+  preloadLoaded++;
+  var pct = Math.round((preloadLoaded / preloadTotal) * 100);
+  updateLoaderProgress(pct);
+
+  if (pct < 30) loaderLoadingText.textContent = 'LOADING...';
+  else if (pct < 60) loaderLoadingText.textContent = '资源加载中...';
+  else if (pct < 90) loaderLoadingText.textContent = '准备就绪...';
+  else loaderLoadingText.textContent = '即将开启...';
+
+  tryFinishPreloader();
+}
+
+function onImageError(entry) {
+  // Treat errors as "done" so they don't block
+  preloadLoaded++;
+  entry._status = 'done';
+  updateLoaderProgress(Math.round((preloadLoaded / preloadTotal) * 100));
+  tryFinishPreloader();
+}
+
+function initPreloader() {
+  preloadStartTime = Date.now();
+  updateLoaderProgress(5);
+
+  // Start video playing
   if (loaderVideo) {
     loaderVideo.play().catch(function() {});
   }
 
-  // Fixed 5-second progress
-  var startTime = Date.now();
-  var duration = 2000;
-  var interval = setInterval(function() {
-    var elapsed = Date.now() - startTime;
-    var p = Math.min(100, (elapsed / duration) * 100);
-    updateLoaderProgress(p);
+  // Sort by priority
+  PRELOAD_IMAGES.sort(function(a, b) { return a.pri - b.pri; });
+  preloadTotal = PRELOAD_IMAGES.length;
 
-    if (p < 35) loaderLoadingText.textContent = 'LOADING...';
-    else if (p < 70) loaderLoadingText.textContent = '准备就绪...';
-    else loaderLoadingText.textContent = '即将开启...';
+  // Load each image
+  for (var i = 0; i < PRELOAD_IMAGES.length; i++) {
+    (function(entry) {
+      var img = new Image();
+      img.onload = function() {
+        entry._status = 'done';
+        onImageLoaded(entry);
+      };
+      img.onerror = function() {
+        onImageError(entry);
+      };
+      // Timeout per image: 15s
+      setTimeout(function() {
+        if (entry._status !== 'done') {
+          entry._status = 'done';
+          onImageLoaded(entry);
+        }
+      }, 15000);
+      entry._status = 'loading';
+      img.src = entry.url;
+    })(PRELOAD_IMAGES[i]);
+  }
 
-    if (p >= 100) {
-      clearInterval(interval);
-      finishLoader();
+  // Progress polling + min/max time enforcement
+  var checkInterval = setInterval(function() {
+    if (loaderFinished) {
+      clearInterval(checkInterval);
+      return;
     }
-  }, 100);
+    tryFinishPreloader();
+  }, 200);
 }
 
-// Click/touch to skip — both events for mobile compatibility
+// Click/touch to skip
 loader.addEventListener('click', function() {
   if (!loaderFinished) finishLoader();
 });
 loader.addEventListener('touchstart', function(e) {
   if (!loaderFinished) { e.preventDefault(); finishLoader(); }
 }, { passive: false });
-
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', function(e) {
   if ((e.key === ' ' || e.key === 'Enter') && !loaderFinished) {
     e.preventDefault();
     finishLoader();
@@ -720,7 +806,7 @@ function initManiStarTrails() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  initVideoLoader();
+  initPreloader();
   initHeroStarTrails();
   initManiStarTrails();
   initHourglass();
