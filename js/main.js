@@ -15,6 +15,14 @@ const main = document.getElementById('main');
 const dots = document.querySelectorAll('.dot');
 const loader = document.getElementById('loader');
 
+// ===== WECHAT 100VH FIX =====
+function setVH() {
+  var vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', vh + 'px');
+}
+setVH();
+window.addEventListener('resize', setVH);
+window.addEventListener('orientationchange', function() { setTimeout(setVH, 100); });
 
 // ===== UTILS =====
 function lerpColor(c1, c2, t) {
@@ -74,6 +82,7 @@ function createConfettiTexture(canvasId) {
     animId: null,
     time: 0,
     particles: [],
+    _paused: false,
 
     init() {
       this.canvas = document.getElementById(canvasId);
@@ -83,6 +92,11 @@ function createConfettiTexture(canvasId) {
       this.createParticles();
       this.animate();
       window.addEventListener('resize', () => this.resize());
+      var self = this;
+      var obs = new IntersectionObserver(function(entries) {
+        self._paused = !entries[0].isIntersecting;
+      }, { threshold: 0 });
+      obs.observe(this.canvas);
     },
 
     resize() {
@@ -179,13 +193,14 @@ function createConfettiTexture(canvasId) {
 
     animate() {
       if (!this.ctx) return;
+      this.animId = requestAnimationFrame(() => this.animate());
+      if (this._paused) return;
       this.time += 16;
       this.ctx.clearRect(0, 0, this.w, this.h);
       this.updateParticles();
       for (var i = 0; i < this.particles.length; i++) {
         this.drawParticle(this.particles[i]);
       }
-      this.animId = requestAnimationFrame(() => this.animate());
     },
 
     destroy() {
@@ -193,7 +208,9 @@ function createConfettiTexture(canvasId) {
         cancelAnimationFrame(this.animId);
         this.animId = null;
       }
-    }
+    },
+
+    setPaused(v) { this._paused = v; }
   };
 }
 
@@ -277,7 +294,7 @@ function renderProductTrack() {
     var m = morandi[p.id] || morandi.original;
     return '<div class="product-card" data-id="' + p.id + '" style="--card-border:' + m.border + ';--card-border-rgb:' + m.rgb + ';background: radial-gradient(circle at 50% 50%, ' + p.light + ' 0%, ' + p.light + ' 50%, #ffffff 100%);" onclick="openDetail(\'' + p.id + '\')">' +
       '<div class="card-bg" style="background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 60%);"></div>' +
-      '<img src="' + p.img + '" alt="' + p.name + '">' +
+      '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" decoding="async">' +
       '<h3>' + p.name + '</h3>' +
       '<span class="flavor-tag">' + p.tag + '</span>' +
     '</div>';
@@ -350,7 +367,7 @@ function removeWhiteFringe(img, threshold = 210) {
 }
 
 // ===== IMAGE PRELOADER — 预加载模块 =====
-const loaderVideo = document.getElementById('loaderVideo');
+const loaderImage = document.getElementById('loaderImage');
 const loaderProgressEl = document.getElementById('loaderProgress');
 const loaderLoadingText = document.getElementById('loaderLoadingText');
 let loaderFinished = false;
@@ -359,6 +376,7 @@ let loaderFinished = false;
 var PRELOAD_IMAGES = [
   // Priority 1: visible on load/hero
   { url: 'wahaha/logo.png', pri: 0 },
+  { url: 'wahaha/b18c14de69382b2f4a9fa34088062266.png', pri: 0 },
   { url: 'pic/hero-bottle.png', pri: 0 },
   // Priority 1: manifesto cards (visible on first scroll)
   { url: 'pic/schoolbag-ad.jpg', pri: 1 },
@@ -403,14 +421,12 @@ function finishLoader() {
 
   setTimeout(function() {
     loader.classList.add('hide');
-    if (loaderVideo) loaderVideo.pause();
     try { initAnimations(); } catch(e) {}
   }, 400);
 
   // Absolute failsafe
   setTimeout(function() {
     loader.classList.add('hide');
-    if (loaderVideo) loaderVideo.pause();
   }, 5000);
 }
 
@@ -458,11 +474,6 @@ function onImageError(entry) {
 function initPreloader() {
   preloadStartTime = Date.now();
   updateLoaderProgress(5);
-
-  // Start video playing
-  if (loaderVideo) {
-    loaderVideo.play().catch(function() {});
-  }
 
   // Sort by priority
   PRELOAD_IMAGES.sort(function(a, b) { return a.pri - b.pri; });
@@ -717,8 +728,10 @@ function initHeroStarTrails() {
   }
 
   function animate() {
-    rotation += speed;
-    draw();
+    if (!c._paused) {
+      rotation += speed;
+      draw();
+    }
     requestAnimationFrame(animate);
   }
 
@@ -790,8 +803,10 @@ function initManiStarTrails() {
   }
 
   function animate() {
-    rotation += speed;
-    draw();
+    if (!c._paused) {
+      rotation += speed;
+      draw();
+    }
     requestAnimationFrame(animate);
   }
 
@@ -867,8 +882,30 @@ function updateSmoothTilt() {
 function scrollToSection(index) {
   if (index < 0 || index >= totalSections) return;
   currentSection = index;
-  const sections = document.querySelectorAll('.section');
-  sections[index].scrollIntoView({ behavior: 'smooth' });
+  var sections = document.querySelectorAll('.section');
+  var target = sections[index];
+
+  if ('scrollBehavior' in document.documentElement.style) {
+    target.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    // Manual smooth scroll polyfill for WeChat X5 (Chromium 69)
+    var startY = main.scrollTop;
+    var endY = target.offsetTop;
+    var startTime = null;
+    var duration = 500;
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var elapsed = timestamp - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      main.scrollTop = startY + (endY - startY) * easeInOutCubic(progress);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   updateDots(index);
 }
 
@@ -972,6 +1009,7 @@ var FooterTexture = {
   lastRippleTime: 0,
   expandProgress: 0,
   targetExpand: 0,
+  _paused: false,
 
   setExpand(v) {
     this.targetExpand = Math.max(0, Math.min(1, v));
@@ -1167,10 +1205,11 @@ var FooterTexture = {
 
   animate() {
     if (!this.ctx) return;
+    this.animId = requestAnimationFrame(() => this.animate());
+    if (this._paused) return;
     this.time += 16;
     this.resize();
     this.draw(this.time);
-    this.animId = requestAnimationFrame(() => this.animate());
   },
 
   destroy() {
@@ -1200,20 +1239,40 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowUp' || e.key === 'PageUp') scrollToSection(currentSection - 1);
 });
 
+function setCanvasPaused(idx, paused) {
+  switch(idx) {
+    case 0: {
+      var c = document.getElementById('heroStarTrails');
+      if (c) c._paused = paused;
+      break;
+    }
+    case 1: {
+      var c = document.getElementById('maniStarTrails');
+      if (c) c._paused = paused;
+      if (ManifestoTexture && ManifestoTexture.setPaused) ManifestoTexture.setPaused(paused);
+      break;
+    }
+    case 2: if (ProductsTexture && ProductsTexture.setPaused) ProductsTexture.setPaused(paused); break;
+    case 3: if (QuizTexture && QuizTexture.setPaused) QuizTexture.setPaused(paused); break;
+    case 4: FooterTexture._paused = paused; break;
+  }
+}
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
+    const sections = Array.from(document.querySelectorAll('.section'));
+    const idx = sections.indexOf(entry.target);
+    if (idx === -1) return;
     if (entry.isIntersecting) {
-      const sections = Array.from(document.querySelectorAll('.section'));
-      const idx = sections.indexOf(entry.target);
-      if (idx !== -1) {
-        currentSection = idx;
-        updateDots(idx);
-        // 翻页钟触发
-        if (idx === 4 && !flipTriggered) {
-          flipTriggered = true;
-          startFlipClock();
-        }
+      currentSection = idx;
+      updateDots(idx);
+      setCanvasPaused(idx, false);
+      if (idx === 4 && !flipTriggered) {
+        flipTriggered = true;
+        startFlipClock();
       }
+    } else {
+      setCanvasPaused(idx, true);
     }
   });
 }, { threshold: 0.5 });
@@ -1223,12 +1282,17 @@ document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
 // ===== GSAP ANIMATIONS =====
 function initAnimations() {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    // Fallback: GSAP not loaded yet, show hero content directly
+    // Fallback: GSAP not loaded, reveal all sections without animation
     document.querySelectorAll('.hero-comic .comic-bottle, .hero-comic .comic-title, .hero-comic .comic-tagline, .hero-comic .timeline, .hero-comic .scroll-hint, .hero-comic .star-trails-canvas').forEach(function(el) {
       el.style.opacity = '1';
     });
     var bottle = document.querySelector('.hero-comic .comic-bottle');
     if (bottle) bottle.style.transform = 'scale(1)';
+    // Reveal all downstream sections — prevents invisible content when GSAP CDN fails
+    document.querySelectorAll('.manifesto-line1a, .manifesto-line1b, .manifesto-accent, .m-card, .products-header, .product-card, .quiz-start, .finale-badge, .finale-title, .finale-subtitle, .flip-clock, .finale-slogan, .finale-poster, .finale-actions, .finale-copyright').forEach(function(el) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
