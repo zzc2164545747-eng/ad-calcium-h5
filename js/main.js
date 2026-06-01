@@ -376,7 +376,7 @@ let loaderFinished = false;
 var PRELOAD_IMAGES = [
   // Priority 1: visible on load/hero
   { url: 'wahaha/logo.png', pri: 0 },
-  { url: 'wahaha/b18c14de69382b2f4a9fa34088062266.png', pri: 0 },
+  { url: 'wahaha/loader-screenshot.png', pri: 0 },
   { url: 'pic/hero-bottle.png', pri: 0 },
   // Priority 1: manifesto cards (visible on first scroll)
   { url: 'pic/schoolbag-ad.jpg', pri: 1 },
