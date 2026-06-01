@@ -1222,7 +1222,15 @@ document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
 
 // ===== GSAP ANIMATIONS =====
 function initAnimations() {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    // Fallback: GSAP not loaded yet, show hero content directly
+    document.querySelectorAll('.hero-comic .comic-bottle, .hero-comic .comic-title, .hero-comic .comic-tagline, .hero-comic .timeline, .hero-comic .scroll-hint, .hero-comic .star-trails-canvas').forEach(function(el) {
+      el.style.opacity = '1';
+    });
+    var bottle = document.querySelector('.hero-comic .comic-bottle');
+    if (bottle) bottle.style.transform = 'scale(1)';
+    return;
+  }
   gsap.registerPlugin(ScrollTrigger);
 
   // Hero entrance — 分步进场
