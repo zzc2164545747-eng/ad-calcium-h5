@@ -1,0 +1,79 @@
+# 开发工具（不上线）
+deploy.js
+deploy-github.js
+server.js
+node_modules/
+
+# 未使用的超大字体
+fronts/寒蝉手拙体.ttf
+
+# AI生成参考图 / 废弃版本（仅保留实际引用的5张）
+pic/1778815157756.png
+pic/1778815571877.png
+pic/1778950187709.png
+pic/30周年极简海报.png
+pic/450ml娃哈哈AD钙奶瓶插画.png
+pic/90s teenage girl full body portrait.png
+pic/AD钙奶30周年-开屏背景.jpg
+pic/AD钙奶30周年动态背景.png
+pic/AD钙奶30周年启动页.png
+pic/AD钙奶30周年柔和配色海报.jpg
+pic/AD钙奶30周年柔和配色海报.png
+pic/AD钙奶30周年毛毡风格海报.png
+pic/AD钙奶30周年洛可可海报.png
+pic/AD钙奶30周年高清海报.jpg
+pic/AD钙奶30周年高清海报.png
+pic/AD钙奶海报-AI生成版.jpg
+pic/AD钙奶海报-V2.jpg
+pic/AD钙奶海报-V3气泡版.jpg
+pic/AD钙奶海报-无人物版.jpg
+pic/AD钙奶海报-绿色主题.jpg
+pic/Abandoned hunter's cabin.png
+pic/Image 2.png
+pic/ad-bottle.png
+pic/ad-bottle1.png
+pic/ad.png
+pic/androgynous character full body portrait.png
+pic/cool androgynous character.png
+pic/cool girl walking away character.png
+pic/cool teenage girl character.png
+pic/cute fierce little girl character.png
+pic/cute tough girl character.png
+pic/group.png
+pic/sleepy bunny girl character.png
+pic/sleepy energetic girl full body portrait.png
+pic/sleepy to energetic girl full body portrait.png
+pic/stylish girl character.png
+pic/wahaha-logo.pdf
+pic/低面数风格少女角色.png
+pic/养生朋克族1.png
+pic/冷脸猫猫奴1.png
+pic/复古新人类1.png
+pic/平行轨迹共同旅程海报 (1).png
+pic/活力佛系人1.png
+pic/甜蜜硬核派1.png
+pic/高级感莫兰迪色调Part.03*.jpg
+pic/30345221250345271264346236201347256200346265267346212245.png
+pic/450ml345250203345223210345223210AD*.png
+pic/AD*.png
+pic/AD*.jpg
+
+# 未使用的产品图（仅保留5款引用图）
+wahaha/products/220AD草莓味AD瓶型.png
+wahaha/products/220AD蜜桃味AD瓶型.png
+wahaha/products/450新AD.png
+wahaha/products/450水蜜桃味.png
+wahaha/products/450草莓味.png
+
+# 三视图参考图
+characters/三视图/
+characters/复古新人类1_transp.png
+
+# 设计源文件（不上线）
+wahaha/2026第18届大广赛-娃哈哈-命题策略单*.docx
+wahaha/娃哈哈LOGO【2026】.ai
+pic/wahaha-logo.pdf
+
+# 临时文件
+_temp_strategy.txt
+参考素材/

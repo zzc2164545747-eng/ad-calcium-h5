@@ -1,4 +1,4 @@
-﻿// ======================
+// ======================
 // AD钙奶30周年 H5 - 品牌重构版
 // 风格：明亮奶白 / 极简现代 / 品牌动画
 // 人格定位：青少年（复古新人类 / 甜心硬核派 / 活力佛系人 / 养生朋克族 / 尖牙猫奴系）
@@ -805,12 +805,18 @@ function initManiStarTrails() {
   });
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+function boot() {
   initPreloader();
   initHeroStarTrails();
   initManiStarTrails();
   initHourglass();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
 
 // ===== HOURGLASS CLICK — 沙漏翻转进入下一页 =====
 function bindHourglass(wrapId, targetIndex) {
