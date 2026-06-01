@@ -372,11 +372,11 @@ var PRELOAD_IMAGES = [
   { url: 'wahaha/products/450-ad-collagen.png', pri: 2 },
   { url: 'wahaha/products/450-ad-lacto.png', pri: 2 },
   // Priority 2: character images
-  { url: 'characters/vintage-human.jpg', pri: 2 },
-  { url: 'characters/sweet-hardcore.jpg', pri: 2 },
-  { url: 'characters/zen-energy.jpg', pri: 2 },
-  { url: 'characters/punk-wellness.jpg', pri: 2 },
-  { url: 'characters/cool-cat-lover.jpg', pri: 2 },
+  { url: 'characters/vintage-human.png', pri: 2 },
+  { url: 'characters/sweet-hardcore.png', pri: 2 },
+  { url: 'characters/zen-energy.png', pri: 2 },
+  { url: 'characters/punk-wellness.png', pri: 2 },
+  { url: 'characters/cool-cat-lover.png', pri: 2 },
 ];
 
 var preloadTotal = PRELOAD_IMAGES.length;
@@ -1360,7 +1360,7 @@ const resultData = {
   original: {
     title: '复古新人类',
     desc: '你是一边穿着爸妈年代的 vintage 运动外套，一边用最新款手机拍复古滤镜短视频的矛盾体。怀旧不是你的舒适区，而是你的时尚武器。AD原味是你衣橱里永不过时的白T——经典、百搭、越旧越有味道。',
-    character: 'characters/vintage-human.jpg',
+    character: 'characters/vintage-human.png',
     product: 'wahaha/products/220-ad-classic.png',
     tags: ['复古DNA', '新世代旧灵魂', 'vintage玩家', '经典即潮流'],
     color: '#7B8D6E',
@@ -1369,7 +1369,7 @@ const resultData = {
   strawberry: {
     title: '甜心硬核派',
     desc: '你的朋友圈是粉色滤镜的甜妹日常，但耳机里放的是重型贝斯。粉色卫衣是你的战袍，底下藏着乐队T恤和未愈合的滑板伤疤。草莓味的甜只是你的保护色，骨子里的硬核才是真面目。',
-    character: 'characters/sweet-hardcore.jpg',
+    character: 'characters/sweet-hardcore.png',
     product: 'wahaha/products/220-ad-strawberry.png',
     tags: ['甜酷双修', '粉色暴击', '反差战神', '硬核少女心'],
     color: '#C94B7A',
@@ -1378,7 +1378,7 @@ const resultData = {
   peach: {
     title: '活力佛系人',
     desc: '你嘴上说着"随便吧""差不多得了"，体测却悄悄拿了满分。不争不抢是你的处世哲学，但实力不允许你低调。蜜桃的温柔就像你的存在感——看似佛系，一出手就知道有没有。',
-    character: 'characters/zen-energy.jpg',
+    character: 'characters/zen-energy.png',
     product: 'wahaha/products/220-ad-peach.png',
     tags: ['佛系赢家', '隐藏大佬', '躺不平卷不赢', '轻松开挂'],
     color: '#D4875E',
@@ -1387,7 +1387,7 @@ const resultData = {
   collagen: {
     title: '养生朋克族',
     desc: '你穿着破洞牛仔裤，裤兜里却装着枸杞茶包；凌晨三点的夜你照熬，但胶原蛋白一片都不能少。朋克是你的态度，养生是你的底线。胶原蛋白的精致，刚好配你那颗又想叛逆又想长命百岁的心。',
-    character: 'characters/punk-wellness.jpg',
+    character: 'characters/punk-wellness.png',
     product: 'wahaha/products/450-ad-collagen.png',
     tags: ['朋克养生', '精致保温杯', '熬夜续命', '叛逆保健'],
     color: '#6B7FAD',
@@ -1396,7 +1396,7 @@ const resultData = {
   lacto: {
     title: '尖牙猫奴系',
     desc: '你的默认表情是"别烦我"，但遇到猫的瞬间会自动切换夹子音。社交对你来说是耗电模式，独处才是快充。乳酸的清爽就像你的存在感——看似冷淡，但对小动物温柔到骨子里，骑最凶的摩托，贴最萌的猫咪贴纸。',
-    character: 'characters/cool-cat-lover.jpg',
+    character: 'characters/cool-cat-lover.png',
     product: 'wahaha/products/450-ad-lacto.png',
     tags: ['金属猫猫党', '猫系少年', '冷脸暖芯', '社恐但温柔'],
     color: '#3B6FD4',
